@@ -1,22 +1,85 @@
 const express = require('express');
 const app = express();
-// const firebase = require("firebase");
-
+const firebase = require("firebase");
+const bodyParser = require('body-parser')
+firebase.initializeApp({
+  apiKey: "AIzaSyDZs4enZ7bzfU1-lkUmrznTb71uMZ8rcNs",
+  authDomain: "contactsmanager-13269.firebaseapp.com",
+  projectId: "contactsmanager-13269"
+});
+var db = firebase.firestore();
+var mid = require('./middleware');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.get('/', function (req, res) {
   res.render('landingPage');
 });
 
-app.get('/signup', function (req, res) {
+app.get('/signup', async function (req, res) {
   res.render('signup');
 })
 
-app.get('/login', function (req, res) {
+app.post('/signup', async function (req, res) {
+  console.log(req.body);
+  var data = req.body;
+  try {
+    let user = await firebase.auth().createUserWithEmailAndPassword(data.email, data.password);
+    console.log(user.user.uid);
+    let userData = {
+      name: data.name,
+      userId: user.user.uid,
+      username: data.userName,
+      email: data.email
+    }
+    console.log(userData);
+    let setDoc = db.collection('User').doc(user.user.uid).set(userData);
+    res.redirect('/home');
+  } catch (e) {
+    console.log(`There was an error ${e}`);
+    res.render('signup', {
+      error: e
+    });
+  }
+
+  console.log("we got hit");
+})
+
+app.get('/login', async function (req, res) {
   res.render('login');
 });
+
+app.post('/login', async function (req, res) {
+  try {
+    let data = req.body;
+    let user = await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+    // get the user
+    let userRef = db.collection('User').doc(user.user.uid);
+    let doc = await userRef.get();
+    console.log(doc.data());
+    res.render('home', {
+      user: doc.data()
+    })
+  } catch (e) {
+    console.log(`There was an error ${e}`);
+    res.render('login', {
+      error: e
+    });
+  }
+});
+
+app.get('/home', mid.isAuth, async function (req, res) {
+  res.render('home');
+});
+
+app.get('/logout', async function (req, res) {
+  firebase.auth().signOut();
+  res.render('login');
+});
+
 
 app.listen(3000, () => {
   console.log(`App listening on port 3000`);
