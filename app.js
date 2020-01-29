@@ -9,11 +9,19 @@ firebase.initializeApp({
 });
 var db = firebase.firestore();
 var mid = require('./middleware');
+var session = require('express-session')
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(session(
+    {
+      secret : 'secret key' ,
+      resave : false ,
+      saveUninitialized : true
+    }
+));
 
 app.get('/', function (req, res) {
   res.render('landingPage');
@@ -60,14 +68,34 @@ app.post('/login', async function (req, res) {
     let userRef = db.collection('User').doc(user.user.uid);
     let doc = await userRef.get();
     console.log(doc.data());
-    res.render('home', {
-      user: doc.data()
-    })
+    res.redirect('/home')
   } catch (e) {
     console.log(`There was an error ${e}`);
     res.render('login', {
       error: e
     });
+  }
+});
+
+app.get('/create', mid.isAuth, async function (req, res) {
+  res.render('create');
+});
+
+app.post('/create', async function (req, res) {
+  try {
+    let data = req.body;
+    let contact = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phone: data.addPhone,
+      email: data.addEmail,
+      userId: req.session.userId
+    };
+    console.log(contact);
+    let setDoc = db.collection('Contact').doc().set(contact);
+    res.redirect('/home');
+  } catch (e) {
+    console.log(`There was an error ${e}`);
   }
 });
 
