@@ -89,11 +89,14 @@ app.post('/create', async function (req, res) {
       lastName: data.lastName,
       phone: data.addPhone,
       email: data.addEmail,
+      addRelated: data.addRelated,
+      favorite: data.favorite,
       userId: req.session.userId
     };
-    console.log(contact);
-    let setDoc = db.collection('Contact').doc().set(contact);
-    res.redirect('/home');
+
+    console.log(req.body);
+    // let setDoc = db.collection('Contact').doc().set(contact);
+    // res.redirect('/home');
   } catch (e) {
     console.log(`There was an error ${e}`);
   }
