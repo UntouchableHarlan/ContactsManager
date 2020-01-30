@@ -91,12 +91,15 @@ app.post('/create', async function (req, res) {
       email: data.addEmail,
       addRelated: data.addRelated,
       favorite: data.favorite,
+      addNickname: data.addNickname,
+      addPhoneType: data.addPhoneType,
+      addEmailType: data.addEmailType,
       userId: req.session.userId
     };
 
-    console.log(req.body);
-    // let setDoc = db.collection('Contact').doc().set(contact);
-    // res.redirect('/home');
+    console.log(contact);
+    let setDoc = db.collection('Contact').doc().set(contact);
+    res.redirect('/home');
   } catch (e) {
     console.log(`There was an error ${e}`);
   }
