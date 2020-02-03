@@ -84,18 +84,30 @@ app.get('/create', mid.isAuth, async function (req, res) {
 app.post('/create', async function (req, res) {
   try {
     let data = req.body;
+    console.log(data);
     let contact = {
       firstName: data.firstName,
       lastName: data.lastName,
       phone: data.addPhone,
       email: data.addEmail,
-      addRelated: data.addRelated,
-      favorite: data.favorite,
-      addNickname: data.addNickname,
-      addPhoneType: data.addPhoneType,
-      addEmailType: data.addEmailType,
       userId: req.session.userId
     };
+
+    if (data.addRelated != undefined) {
+      contact.relation = data.addRelated
+    }
+    if (data.favorite != undefined) {
+      contact.favorite = data.favorite
+    }
+    if (data.addNickname != undefined) {
+      contact.nickname = data.addNickname
+    }
+    if (data.addPhoneType != undefined) {
+      contact.phoneType = data.addPhoneType
+    }
+    if (data.addEmailType != undefined) {
+      contact.emailType = data.addEmailType
+    }
 
     console.log(contact);
     let setDoc = db.collection('Contact').doc().set(contact);
