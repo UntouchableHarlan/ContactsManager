@@ -39,12 +39,60 @@
             </div>
           </div>
           <div class="form-group">
+              <label for="addNickname">Add Nickname</label>
+              <input type="text" name="addNickname" class="form-control" id="inputaddNickname" placeholder="Nickname">
+          </div>
+          <div class="form-row align-items-center">
+              <div class="col-auto my-1">
+                <label class="mr-sm-2" for="inlineFormCustomSelect">Add Related Name</label>
+                <select class="custom-select" name="addRelated" id="inlineFormCustomSelect">
+                  <option selected>Choose...</option>
+                  <option value="mother">Mother</option>
+                  <option value="father">Father</option>
+                  <option value="parent">Parent</option>
+                  <option value="brother">Brother</option>
+                  <option value="sister">Sister</option>
+                  <option value="son">Son</option>
+                  <option value="daughter">Daughter</option>
+                  <option value="child">Child</option>
+                  <option value="friend">Friend</option>
+                  <option value="spouse">Spouse</option>
+                  <option value="partner">Partner</option>
+                  <option value="manager">Manager</option>
+                </select>
+              </div>
+              <div class="col-auto my-1">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                  <input type="checkbox" name="favorite" class="custom-control-input" id="customControlAutosizing">
+                  <label class="custom-control-label" for="customControlAutosizing">Favorite</label>
+                </div>
+              </div>
+          </div>
+          <div class="form-group">
             <label for="addPhone">Add Phone</label>
             <input type="text" name="addPhone" class="form-control" id="inputaddPhone" placeholder="xxx-xxx-xxxx">
+                <select class="custom-select" name="addPhoneType" id="inlineFormCustomSelect">
+                    <option selected>Home</option>
+                    <option value="work">work</option>
+                    <option value="school">school</option>
+                    <option value="Knights">Knights</option>
+                    <option value="mobile">mobile</option>
+                    <option value="main">main</option>
+                    <option value="homeFax">home fax</option>
+                    <option value="workFax">work fax</option>
+                    <option value="pager">pager</option>
+                </select>
           </div>
           <div class="form-group">
             <label for="inputEmail">Add Email</label>
             <input type="text" name="addEmail" class="form-control" id="inputEmail" placeholder="Email">
+                <select class="custom-select" name="addEmailType" id="inlineFormCustomSelect">
+                    <option selected>Home</option>
+                    <option value="work">work</option>
+                    <option value="school">school</option>
+                    <option value="Knights">Knights</option>
+                    <option value="addCustomLabel">Add Custom Label</option>
+                </select>
           </div>
           <button type="submit" class="btn btn-primary">Create contact</button>
         </form>
