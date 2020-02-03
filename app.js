@@ -9,7 +9,8 @@ firebase.initializeApp({
 });
 var db = firebase.firestore();
 var mid = require('./middleware');
-var session = require('express-session')
+var session = require('express-session');
+var fbHelper = require('./helpers/FirebaseAPI.js');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -91,8 +92,10 @@ app.post('/create', async function (req, res) {
       email: data.addEmail,
       userId: req.session.userId
     };
+    let setDoc = db.collection('Contact').doc()
+    contact.objectId = setDoc.id;
+    setDoc.set(contact);
     console.log(contact);
-    let setDoc = db.collection('Contact').doc().set(contact);
     res.redirect('/home');
   } catch (e) {
     console.log(`There was an error ${e}`);
@@ -100,7 +103,64 @@ app.post('/create', async function (req, res) {
 });
 
 app.get('/home', mid.isAuth, async function (req, res) {
-  res.render('home');
+  try {
+    let userId = req.session.userId;
+    var user = await fbHelper.getUser(userId)
+    var allContacts = await fbHelper.getAllContacts(userId);
+    res.render('home', {
+      contacts: allContacts,
+      user: user
+    });
+  } catch (e) {
+    console.log(`There was an error ${e}`);
+  }
+});
+
+app.get('/contact/:id', mid.isAuth, async function (req, res) {
+  try {
+    let userId = req.session.userId;
+    let contactId = req.params.id;
+    var user = await fbHelper.getUser(userId);
+    var contact = await fbHelper.getContactById(userId, contactId);
+    res.render('contactDetail', {
+      contact: contact,
+      user: user
+    });
+  } catch (e) {
+    console.log(`There was an error ${e}`);
+  }
+});
+
+app.patch('/contact/:id/update', mid.isAuth, async function (req, res) {
+  try {
+    let userId = req.session.userId;
+    let contactId = req.params.id;
+    console.log(req.body);
+    var contact = {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      phone: req.body.phone,
+      email: req.body.email
+    }
+    // update function
+    let contactRef = db.collection('Contact').doc(contactId);
+    let update = contactRef.update(contact);
+    res.json(update);
+  } catch (e) {
+    console.log(`There was an error ${e}`);
+    return e;
+  }
+});
+
+app.post('/contact/:id/delete', mid.isAuth, async function (req, res) {
+  try {
+    let deleteDoc = db.collection('Contact').doc(req.params.id).delete();
+    res.json(deleteDoc);
+  } catch (e) {
+    console.log(`Error deleting document: ${e}`);
+    return e;
+  }
+
 });
 
 app.get('/logout', async function (req, res) {
