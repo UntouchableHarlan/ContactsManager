@@ -1,0 +1,104 @@
+	header{
+		background-color: #412434; <!-- Background Color -->
+	}
+	main{
+		background-color: #412434;
+	}
+	footer{
+		background-color: #412434;
+	}
+	.view{
+		background-color: #412434;
+	}
+	body{
+		background-color: #412434;
+	}
+	h1{
+		font: "Gotham SSm A";
+		color: #969fa7;				<!-- Text Color -->
+	}
+	h2{
+		font: "Gotham SSm A";
+		color: #969fa7;				<!-- Text Color -->
+	}
+	h3{
+		font: "Gotham SSm A";
+		color: #969fa7;
+		font-size: 30px;
+	}
+	h4{
+		font: "Gotham SSm A";
+		color: #969fa7;
+	}
+	h5{
+		font: "Gotham SSm A";
+		color: #969fa7;
+	}
+	h6{
+		font: "Gotham SSm A";
+		color: #969fa7;
+	}
+	strong{
+		font: "Gotham SSm A";
+		color: #969fa7;
+	}
+	p{
+		font: "Gotham SSm A";
+		color: #969fa7;
+	}
+	label{
+		font: "Gotham SSm A";
+		color: #969fa7;
+	}
+	hr{
+		height: 1px;
+		background-color: #969fa7;
+		border: none;
+	}
+	a:link{
+		color: #c34d5f;
+	}
+	a:visited{
+		color: #c34d5f;
+	}
+	.bg-light{
+		background:linear-gradient(#969fa7 90%, #412434) !important;
+	
+	}
+	.custom-toggler.navbar-toggler{
+		border-color: #412434;
+	}
+	.custom-toggler .navbar-toggler-icon {
+	  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(195,77,95, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+	}
+	.btn{
+		background-color: #c34d5f;
+		border: 2px solid #412434;
+		color: #412434;
+		font-weight: bold;
+	}
+	.btn:hover{
+		background-color: #c34dc1;
+		border: 2px solid #412434;
+	}
+	.btn:focus{
+		background-color: #c34dc1;
+		border: 2px solid #412434;
+	}
+	.title{
+		font: "Gotham SSm A";
+		color: #969fa7;
+		font-weight: bold;
+	}
+	mark{
+		background-color: #c34d5f;
+		border: 2px solid #412434;
+		color: #412434;
+		font-weight: bold;
+	}
+	mark:hover{
+		background-color: #c34dc1;
+		border: 2px solid #412434;
+		color: #FFF;
+	}
+	

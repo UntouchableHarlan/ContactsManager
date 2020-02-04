@@ -5,28 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/our_style.css">
     <title>Welcome <%= user.name %></title>
   </head>  
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">Contacts Manager</a>
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/create">Create</a>
+    <nav class="navbar navbar-expand-lg navbar-default bg-light fixed-top">
+		  <button class="navbar-toggler custom-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+			<a class="navbar-brand" href="#"><b>Deez Knights</b></a>
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+			<!-- Populate nav-bar -->
+				<li class="nav-item">
+            <a class="nav-link" href="/create"><b>Create</b></a>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
+            <a class="nav-link" href="/logout"><b>Logout</b></a>
           </li>
         </ul>
       </div>
     </nav>
-    <h1 style="text-align: center;">All Contacts</h1>
+    <h1 style="padding-top: 9%; text-align: center;">All Contacts</h1>
     <div class="container">
       <div class="row" style="display:flex;justify-content:center;">
         <div class="col-md-6 form-inline" style="justify-content:center;">
@@ -49,13 +51,16 @@
               </div>
               <div class="info">
                   <div class="title">
-                      <%= contact.firstName %> <%= contact.lastName %>
+                      <h3><%= contact.firstName %> <%= contact.lastName %></h3>
                   </div>
-                  <div class="desc"><%= contact.phone %></div>
-                  <div class="desc"><%= contact.email %></div>
+				  <div class="desc">
+                      <h6>"<%= contact.nickname %>"</h6>
+                  </div>
+                  <div class="desc"><h5><%= contact.phone %></h5></div>
+                  <div class="desc"><h5><%= contact.email %></h5></div>
               </div>
               <div class="bottom">
-                <a href="/contact/<%= contact.objectId %>">View</a>
+                <a href="/contact/<%= contact.objectId %>"><mark>View</mark></a>
               </div>
           </div>
         <% }) %>
